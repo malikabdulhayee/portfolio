@@ -1,0 +1,11 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        # Guard rail: a broken page or bad game content fails the build instead of going live.
+        - node scripts/check-site.js
+  artifacts:
+    baseDirectory: site
+    files:
+      - '**/*'

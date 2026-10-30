@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Abdul Hayee">
+  <rect width="32" height="32" rx="5" fill="#0F1A2B"/>
+  <text x="16" y="21.5" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="14" fill="#EDF0F3">AH</text>
+  <circle cx="26" cy="6" r="3" fill="#D3232F"/>
+</svg>
