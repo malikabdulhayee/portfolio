@@ -1,0 +1,14 @@
+{
+  "name": "audit-me",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Audit Me: Abdul Hayee's portfolio for the AWS Student Builder Challenge. Static site on AWS Amplify with an optional serverless leaderboard.",
+  "scripts": {
+    "check": "node scripts/check-site.js",
+    "test": "node --test tests/engine.test.js && python3 -m unittest discover -s tests -p \"test_*.py\"",
+    "serve": "node scripts/serve.js",
+    "e2e": "node tests/e2e.js http://localhost:8080 ./out",
+    "assets": "python3 scripts/make_diagrams.py && node scripts/make_og.js"
+  },
+  "engines": { "node": ">=20" }
+}

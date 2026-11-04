@@ -1,0 +1,17 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        # Guard rail: a broken page or bad game content fails the build instead of going live.
+        - node scripts/check-site.js
+        # Link previews (LinkedIn, WhatsApp) need an absolute image URL. Amplify provides
+        # AWS_APP_ID and AWS_BRANCH, so build the default domain from them. Skipped locally.
+        - |
+          if [ -n "$AWS_APP_ID" ] && [ -n "$AWS_BRANCH" ]; then
+            sed -i "s#content=\"assets/og.png\"#content=\"https://${AWS_BRANCH}.${AWS_APP_ID}.amplifyapp.com/assets/og.png\"#" site/index.html
+          fi
+  artifacts:
+    baseDirectory: site
+    files:
+      - '**/*'
