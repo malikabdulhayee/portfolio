@@ -75,6 +75,10 @@ async function playAll(page, tag, { wrongFirst = true } = {}) {
     check(tag + ' score in range 275..395', pts >= 275 && pts <= 395, String(pts));
     check(tag + ' leaderboard hidden when no API configured', (await page.locator('.board-wrap').count()) === 0);
     check(tag + ' counter reads 3 of 4', (await page.locator('#casefile-count').innerText()) === '3 of 4 declassified');
+    check(tag + ' whole page re-skins to secure when the audit passes', await page.evaluate(() => document.documentElement.classList.contains('is-secure')));
+    check(tag + ' hero card says all findings fixed', (await page.locator('#teaser-foot').innerText()) === 'All findings fixed. Audit passed.');
+    check(tag + ' threat feed shows 3 blocked lines', (await page.locator('.feed-line.is-blocked').count()) === 3);
+    check(tag + ' hero hint text changes after passing', (await page.locator('#open-audit').innerText()).startsWith('Audit passed'));
     await page.screenshot({ path: path.join(OUT, tag + '-4-report.png') });
     await page.locator('#audit-root').evaluate(el => { el.scrollTop = el.scrollHeight; });
     await page.screenshot({ path: path.join(OUT, tag + '-4b-report-bottom.png') });
@@ -97,9 +101,11 @@ async function playAll(page, tag, { wrongFirst = true } = {}) {
     await page.keyboard.press('Escape');
     await page.reload();
     check(tag + ' progress survives reload (case file)', (await page.locator('#casefile-count').innerText()) === '3 of 4 declassified');
+    check(tag + ' secure skin survives reload', await page.evaluate(() => document.documentElement.classList.contains('is-secure')));
     await page.click('#open-audit');
     await page.click('text=Play again');
     check(tag + ' play again resets case file', (await page.locator('#casefile-count').innerText()) === '0 of 4 declassified');
+    check(tag + ' play again restores the red page and open feed', !(await page.evaluate(() => document.documentElement.classList.contains('is-secure'))) && (await page.locator('.feed-line.is-open').count()) === 3 && (await page.locator('#open-audit').innerText()) === 'Audit my infrastructure');
     await page.click('text=Start the audit');
     // keyboard path: answer finding 1 with number keys until correct
     const s1 = DATA.scenarios[0];

@@ -34,6 +34,7 @@
   --signal: #d3232f;
   --signal-dark: #a81822;
   --ok: #0b7a4b;
+  --ok-dark: #075c38;
   --focus: #1d5fd1;
 
   --aws: #c47a00;
@@ -178,6 +179,19 @@ html:not(.js) .nav-audit, html:not(.js) .hint { display: none; }
 @keyframes flag { from { color: var(--slate); } to { color: var(--signal); } }
 .teaser-foot { padding: 0.7rem 1rem; color: var(--signal); font-weight: 700; }
 /* the hero card follows the game: fixed settings turn green on the page itself */
+/* when the audit passes, the whole site re-skins from alert red to secure green */
+html.is-secure { --signal: var(--ok); --signal-dark: var(--ok-dark); }
+html.is-secure .hint { animation: none; }
+.feed { border-top: 1px solid var(--rule-strong); padding: 0.7rem 1rem 0.8rem; }
+.feed-head { display: flex; justify-content: space-between; gap: 1rem; color: var(--slate); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.feed-lines { margin-top: 0.55rem; display: grid; gap: 0.45rem; }
+.feed-line { display: flex; gap: 0.6rem; align-items: baseline; font-size: 0.78rem; line-height: 1.35; }
+.feed-mark { flex: none; min-width: 4.6rem; font-weight: 700; }
+.feed-text { color: var(--slate); overflow-wrap: anywhere; }
+.feed-line.is-open .feed-mark { color: #d3232f; }
+.feed-line.is-blocked .feed-mark { color: var(--ok); }
+.feed-line.is-new { animation: blocked 0.9s ease; }
+@keyframes blocked { from { background: rgba(11, 122, 75, 0.22); } to { background: transparent; } }
 .teaser.is-fixed .teaser-rows b { color: var(--ok); animation: none; }
 .teaser.is-clear { border-color: var(--ok); }
 .teaser.is-clear .teaser-foot { color: var(--ok); }

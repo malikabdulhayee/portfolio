@@ -28,6 +28,15 @@
   var openedAt = null;
   var tick = null;
 
+  /* page texts that change when the audit passes (restored by Play again) */
+  var hintBtn = document.getElementById('open-audit');
+  var hintCap = document.getElementById('hint-caption');
+  var HINT_OPEN = hintBtn ? hintBtn.textContent : '';
+  var CAP_OPEN = hintCap ? hintCap.textContent : '';
+  var HINT_DONE = 'Audit passed. Run it again';
+  var CAP_DONE = 'Every finding is fixed and my case file is open. Scroll down to read it, or run the audit again.';
+  var lastFeed = {};
+
   /* ---------- storage (always optional) ---------- */
   function load() {
     try {
@@ -124,6 +133,32 @@
     if (foot) foot.textContent = open === 0 ? 'All findings fixed. Audit passed.' : open + (open === 1 ? ' finding open' : ' findings open');
     card.classList.toggle('is-fixed', fixed);
     card.classList.toggle('is-clear', open === 0);
+    renderFeed();
+
+    /* the whole page re-skins from alert red to secure green */
+    document.documentElement.classList.toggle('is-secure', open === 0);
+    if (hintBtn) hintBtn.textContent = open === 0 ? HINT_DONE : HINT_OPEN;
+    if (hintCap) hintCap.textContent = open === 0 ? CAP_DONE : CAP_OPEN;
+  }
+
+  /* simulated threat feed: each line flips from exposed to blocked when its finding is fixed */
+  function renderFeed() {
+    var box = document.getElementById('teaser-feed');
+    if (!box) return;
+    var list = box.querySelector('.feed-lines');
+    var lines = [];
+    SC.forEach(function (sc) {
+      if (sc.bonus || !sc.feed) return;
+      var done = !!(run.results[sc.id] && run.results[sc.id].solved);
+      var changed = lastFeed[sc.id] === 'open' && done;
+      lastFeed[sc.id] = done ? 'blocked' : 'open';
+      lines.push(h('li', { class: 'feed-line ' + (done ? 'is-blocked' : 'is-open') + (changed ? ' is-new' : '') }, [
+        h('span', { class: 'feed-mark', text: done ? 'blocked' : 'exposed' }),
+        h('span', { class: 'feed-text', text: done ? sc.feed.fixed : sc.feed.open })
+      ]));
+    });
+    list.replaceChildren.apply(list, lines);
+    box.hidden = lines.length === 0;
   }
 
   /* ---------- header ---------- */

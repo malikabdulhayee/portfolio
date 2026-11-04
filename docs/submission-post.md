@@ -34,8 +34,10 @@ Wrong answers are not dead ends. Each one explains why it does not work ("obscur
 "a deny list blocks one action and leaves everything else allowed") and costs 25 points, so you learn the
 reason while you play. Faster audits earn a time bonus, and finishing gives you a rank and a shareable result line.
 
-The page changes while you play: the case file on the About section declassifies one row per fix, and
-the bucket card on the home screen flips from red to green. Nothing depends on the game. All content is plain HTML and
+The page itself changes while you play. The case file on the About section declassifies one row per fix, and the
+simulated threat feed on the home screen flips each line from "exposed" to "blocked". When the last finding is fixed,
+the whole site re-skins from alert red to secure green, and the hint button becomes "Audit passed. Run it again".
+Nothing depends on the game. All content is plain HTML and
 navigation works with the game closed, with JavaScript off, and on a 360 px phone.
 
 Screenshots: 01 to 08.

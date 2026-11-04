@@ -66,6 +66,12 @@ scenarios.forEach((s) => {
   if (!new RegExp('data-case="' + s.id + '"').test(html)) fail(s.id + ': no case-file row in index.html');
 });
 if (scenarios.filter((s) => !s.bonus).length < 3) fail('need at least 3 core scenarios');
+scenarios.filter((s) => !s.bonus).forEach((s) => {
+  if (!s.feed || !s.feed.open || !s.feed.fixed) fail(s.id + ': core scenario needs feed.open and feed.fixed (hero threat feed)');
+});
+['teaser-feed', 'teaser-foot', 'hint-caption'].forEach((id) => {
+  if (!ids.has(id)) fail('missing #' + id + ' (the hero card and hint text the game updates)');
+});
 
 // 8. Security header file must agree with the page
 const headers = fs.readFileSync(path.join(__dirname, '..', 'customHttp.yml'), 'utf8');

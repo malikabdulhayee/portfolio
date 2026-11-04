@@ -26,6 +26,7 @@
             { k: 'Region', v: 'ap-south-1' }
           ]
         },
+        feed: { open: '203.0.113.24 GET /build-artifacts.zip 200', fixed: '203.0.113.24 GET /build-artifacts.zip 403' },
         prompt: 'This bucket stores build artifacts, and anyone with the URL can read them. Which fix closes the exposure?',
         options: [
           { text: 'Turn on Block Public Access and default encryption', correct: true },
@@ -60,6 +61,7 @@
             { k: 'Permission boundary', v: 'None', bad: true }
           ]
         },
+        feed: { open: 'orders-api-role iam:CreateUser allowed', fixed: 'orders-api-role iam:CreateUser denied' },
         prompt: 'A small API function runs with full administrator rights, but it only ever reads from S3 and writes to DynamoDB. What is the right fix?',
         options: [
           { text: 'Replace it with a policy that allows only s3:GetObject and dynamodb:PutItem on this API’s own resources', correct: true },
@@ -94,6 +96,7 @@
             { k: 'Key pair', v: 'Shared by the whole team', bad: true }
           ]
         },
+        feed: { open: '198.51.100.77 ssh root@web-sg:22 attempt 1,204', fixed: '198.51.100.77 ssh web-sg:22 no route' },
         prompt: 'SSH is open to the entire internet. Which fix removes the risk instead of reducing it?',
         options: [
           { text: 'Delete the open SSH rule and connect through Session Manager', correct: true },

@@ -20,6 +20,7 @@ Every correct fix explains why it works and declassifies a row of the "case file
 | Bonus: no audit logging | Multi-region CloudTrail with log validation | Superpower and a fun fact |
 
 - Wrong picks show a hint that teaches the reason (and cost 25 points). Faster audits earn a time bonus.
+- The page reacts: the hero card and its simulated threat feed flip from exposed to blocked as you fix findings, and when the audit passes the whole site re-skins from alert red to secure green (Play again restores it).
 - The clock only runs while a finding is on screen. Esc closes the console and progress is kept.
 - The game is a **simulation**. It never touches real resources, and it needs no network.
 - The portfolio never depends on it: all content is plain HTML, and the navigation works with the game closed.

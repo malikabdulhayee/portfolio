@@ -42,7 +42,7 @@
           <p class="lede">I build delivery pipelines on AWS, Azure and Google Cloud that scan, test and deploy on their own, and I look for what is exposed before someone else does.</p>
           <div class="hint-block">
             <button type="button" class="hint" id="open-audit" data-open-audit>Audit my infrastructure</button>
-            <p class="hint-caption">Three things are misconfigured in my cloud account. Fix them to declassify my case file.</p>
+            <p class="hint-caption" id="hint-caption">Three things are misconfigured in my cloud account. Fix them to declassify my case file.</p>
             <noscript><p class="hint-caption">The audit game needs JavaScript. Everything else on this page works without it.</p></noscript>
           </div>
         </div>
@@ -57,6 +57,10 @@
             <li><span>Bucket policy</span><b data-open="Public read" data-fixed="Private">Public read</b></li>
             <li><span>Default encryption</span><b data-open="None" data-fixed="AES-256">None</b></li>
           </ul>
+          <div class="feed" id="teaser-feed" hidden>
+            <p class="feed-head"><span>Threat feed</span><span>simulated</span></p>
+            <ul class="feed-lines"></ul>
+          </div>
           <div class="teaser-foot" id="teaser-foot">3 findings open</div>
         </div>
       </div>
